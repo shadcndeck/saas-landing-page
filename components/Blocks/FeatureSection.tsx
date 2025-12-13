@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import {
     BookOpen,
@@ -7,6 +9,7 @@ import {
     Users,
     Zap,
 } from "lucide-react";
+import { motion } from "motion/react";
 
 export function FeaturesSection() {
     const features = [
@@ -47,7 +50,13 @@ export function FeaturesSection() {
     ];
     return (
         <div id="features" className="max-w-7xl mx-auto py-16">
-            <div className="text-center mb-16">
+            <motion.div
+                className="text-center mb-16"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            >
                 <h2 className="text-4xl md:text-5xl font-bold mb-4 text-neutral-800 dark:text-neutral-100">
                     Why Choose FlowAI?
                 </h2>
@@ -55,7 +64,7 @@ export function FeaturesSection() {
                     Experience the future of customer support with AI that actually understands your business.
                     Built for scale, designed for humans.
                 </p>
-            </div>
+            </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 relative z-10">
                 {features.map((feature, index) => (
                     <Feature key={feature.title} {...feature} index={index} />
@@ -77,12 +86,20 @@ const Feature = ({
     index: number;
 }) => {
     return (
-        <div
+        <motion.div
             className={cn(
                 "flex flex-col lg:border-r  py-10 relative group/feature dark:border-neutral-800",
                 (index === 0 || index === 3) && "lg:border-l dark:border-neutral-800",
                 index < 3 && "lg:border-b dark:border-neutral-800"
             )}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{
+                duration: 0.5,
+                delay: index * 0.15,
+                ease: [0.22, 1, 0.36, 1],
+            }}
         >
             {index < 3 && (
                 <div className="opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full bg-linear-to-t from-neutral-100 dark:from-neutral-800 to-transparent pointer-events-none" />
@@ -102,6 +119,6 @@ const Feature = ({
             <p className="text-sm text-neutral-600 dark:text-neutral-300 max-w-xs relative z-10 px-10">
                 {description}
             </p>
-        </div>
+        </motion.div>
     );
 };
